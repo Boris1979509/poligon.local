@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
 $factory->define(BlogPost::class, function (Faker $faker) {
     $title = $faker->sentence(rand(3, 8), true); // sentence предложение от 3 до 8 символов
     $txt = $faker->realText(rand(1000, 4000));
-    $isPublished = (rand(1, 5) > 1);
+    $isPublished = (rand(1, 5) > 1) ? TRUE : FALSE; // rand -- Генерирует случайное число min : max
     $createdAt = $faker->dateTimeBetween('-2 month', '-1 days');
     $data = [
         'category_id' => rand(1, 11),
