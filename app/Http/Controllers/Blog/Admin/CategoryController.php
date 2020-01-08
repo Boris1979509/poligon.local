@@ -50,7 +50,11 @@ class CategoryController extends BaseController {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        //
+        //$item = BlogCategory::findOrFail($id); // найти или неудачу 404
+        //$item = BlogCategory::find($id); // найти или null
+        $item = BlogCategory::where('id', $id)->first(); // select * from `blog_categories` where `id` = '4' limit 1
+        $categoryList = BlogCategory::all();
+        return view('blog.admin.categories.edit', compact('item', 'categoryList'));
     }
 
     /**
@@ -61,7 +65,19 @@ class CategoryController extends BaseController {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-        //
+        $item = BlogCategory::find($id);
+        if (empty($item)) {
+            return back()->withErrors(['msg' => "Запись с ID-$id не найдена."])->withInput();
+        }
+        $data = $request->all();
+        $result = $item->fill($data)->save();
+        if ($result) {
+            return redirect()
+                            ->route('blog.admin.categories.edit', $item->id)
+                            ->with(['success' => 'Успешно сохранено']);
+        } else {
+            return back()->withErrors(['msg' => "Ошибка сохранения."])->withInput();
+        }
     }
 
     /**
