@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Blog\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\BlogCategory;
+use App\Http\Requests\BlogCategoryUpdate;
 
 class CategoryController extends BaseController {
 
@@ -11,7 +12,7 @@ class CategoryController extends BaseController {
 
     public function index() {
         $paginator = BlogCategory::paginate(self::LIMIT);
-        return view('blog.admin.category.index', compact('paginator'));
+        return view('blog.admin.categories.index', compact('paginator'));
     }
 
     /**
@@ -64,7 +65,12 @@ class CategoryController extends BaseController {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
+    public function update(BlogCategoryUpdate $request, $id) {
+
+        //$validatedData = $this->validate($rules);        
+        $validatedData = $request->validate();
+//
+        dd($validatedData);
         $item = BlogCategory::find($id);
         if (empty($item)) {
             return back()->withErrors(['msg' => "Запись с ID-$id не найдена."])->withInput();
