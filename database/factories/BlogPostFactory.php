@@ -1,8 +1,10 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Models\BlogPost;
+/** @var Factory $factory */
+
+use App\Models\Blog\BlogPost;
 use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Str;
 
 /*
@@ -16,23 +18,23 @@ use Illuminate\Support\Str;
   |
  */
 
-$factory->define(BlogPost::class, function (Faker $faker) {
-    $title = $faker->sentence(rand(3, 8), true); // sentence предложение от 3 до 8 символов
-    $txt = $faker->realText(rand(1000, 4000));
-    $isPublished = (rand(1, 5) > 1) ? TRUE : FALSE; // rand -- Генерирует случайное число min : max
+$factory->define(BlogPost::class, static function (Faker $faker) {
+    $title = $faker->sentence(random_int(3, 8), true);
+    $txt = $faker->realText(random_int(1000, 4000));
+    $isPublished = (random_int(1, 5) > 1) ? true : false;
     $createdAt = $faker->dateTimeBetween('-2 month', '-1 days');
     $data = [
-        'category_id' => rand(1, 11),
-        'user_id' => (rand(1, 5) == 5) ? 1 : 2,
-        'title' => $title,
-        'slug' => Str::slug($title),
-        'excerpt' => $faker->text(rand(40, 100)),
-        'content_raw' => $txt,
+        'category_id'  => random_int(1, 11),
+        'user_id'      => random_int(1, 100),
+        'title'        => $title,
+        'slug'         => Str::slug($title),
+        'excerpt'      => $faker->text(random_int(40, 100)),
+        'content_raw'  => $txt,
         'content_html' => $txt,
         'is_published' => $isPublished,
         'published_at' => $isPublished ? $faker->dateTimeBetween('-2 month', '-1 days') : null,
-        'created_at' => $createdAt,
-        'updated_at' => $createdAt,
+        'created_at'   => $createdAt,
+        'updated_at'   => $createdAt,
     ];
     return $data;
 });

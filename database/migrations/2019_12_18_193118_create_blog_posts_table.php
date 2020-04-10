@@ -11,17 +11,17 @@ class CreateBlogPostsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('blog_posts', function (Blueprint $table) {
+        Schema::create('blog_posts', static function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('category_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->string('slug')->unique();
             $table->string('title');
-            $table->text('excerpt')->nullable();          
-            $table->text('content_raw');          
-            $table->text('content_html'); 
+            $table->text('excerpt')->nullable();
+            $table->text('content_raw');
+            $table->text('content_html');
             $table->boolean('is_published')->default(false);
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
@@ -37,7 +37,7 @@ class CreateBlogPostsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('blog_posts');
     }

@@ -9,15 +9,16 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         /**
          * Поочерёдное выполнение с помощбю команды
          * php artisan db:seed
          */
         $this->call(UsersTableSeeder::class);
+        //factory(App\Models\User::class, 10)->create();
         $this->call(BlogCategoriesTableSeeder::class);
         // Helper factory на создание постов в кол-ве 100 шт.
-        factory(App\Models\BlogPost::class, 100)->create();
+        factory(App\Models\Blog\BlogPost::class, 100)->create();
     }
 }

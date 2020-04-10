@@ -1,37 +1,41 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', "TestController@index");
-
-Route::group(['namespace' => 'Blog', 'prefix' => 'blog'], function(){
-    Route::resource('posts', 'PostController')->names('blog.posts');
-});
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
+Route::get('cabinet', 'Cabinet\HomeController@index')->name('cabinet.home');
+Route::get('verify/{token}', 'Auth\RegisterController@verify')->name('register.verify');
 
-Route::get('/home', 'HomeController@index')->name('home');
-/**
- * Админка Блога
- */
-$groupData = [
-    'namespace' => 'Blog\Admin',
-    'prefix' => 'admin/blog',
-];
-Route::group($groupData, function (){
-    // Resource methods only by CategoryController
-    $methods = ['index', 'edit', 'store', 'update', 'create'];
-    Route::resource('categories', 'CategoryController')->only($methods)->names('blog.admin.categories');
+// Admin
+Route::group([
+    'prefix'     => 'admin',
+    'as'         => 'admin.',
+    'namespace'  => 'Admin',
+    'middleware' => 'auth',
+], static function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    // Admin Users
+    Route::group([
+        'namespace' => 'Users',
+    ], static function () {
+        Route::resource('users', 'UsersController');
+        Route::post('users/{user}/verify', 'UsersController@verify')->name('users.verify');
+    });
+    // Admin Blog
+    Route::group([
+        'namespace' => 'Blog',
+        'prefix'    => 'blog',
+        'as'        => 'blog.',
+    ], static function () {
+        $methods = ['index', 'edit', 'store', 'update', 'create'];
+        Route::resource('categories', 'CategoryController')->only($methods);
+    });
 });
-/**
- * end Category
- */
+
+// Blog
+//Route::group(
+//    ['namespace' => 'Blog',
+//     'prefix'    => 'blog',
+//    ], static function () {
+//    Route::resource('posts', 'PostController')->names('blog.posts');
+//});

@@ -11,9 +11,9 @@ class CreateBlogCategoriesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('blog_categories', function (Blueprint $table) {
+        Schema::create('blog_categories', static function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('parent_id')->unsigned()->default(1);
             $table->string('slug')->unique();
@@ -29,7 +29,7 @@ class CreateBlogCategoriesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('blog_categories');
     }
