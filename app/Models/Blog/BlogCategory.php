@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class BlogCategory
- * @property $id id
- * @property $slug slug
- * @property $title title
- * @property $parent_id parent_id
- * @property $description description
+ * @property integer $id
+ * @property string $slug
+ * @property string $title
+ * @property integer $parent_id
+ * @property string $description
  */
 class BlogCategory extends Model
 {

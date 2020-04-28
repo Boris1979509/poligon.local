@@ -10,21 +10,24 @@ class RegisterTest extends TestCase
 {
     use DatabaseTransactions;
 
+    protected $name = 'name';
+    protected $email = 'email';
+    protected $password = 'password';
+
     public function testRequest(): void
     {
-        $user = User::register('name1', 'email2', 'password');
+        $user = User::register($this->name, $this->email, $this->password);
         self::assertNotEmpty($user, 'User is empty.');
-        self::assertEquals('name', $user->name, 'Name fields are not equal.');
-        self::assertEquals('email', $user->email, 'Email fields are not equal.');
+        self::assertEquals($this->name, $user->name, 'Name fields are not equal.');
+        self::assertEquals($this->email, $user->email, 'Email fields are not equal.');
 
         self::assertNotEmpty($user->password, 'Password is empty.');
-        self::assertEquals('password', $user->password, 'Password fields are not equal.');
         self::assertFalse($user->isActive(), 'Status is not waiting.');
     }
 
     public function testVerify(): void
     {
-        $user = User::register('name', 'email', 'password');
+        $user = User::register($this->name, $this->email, $this->password);
 
         $user->verify();
 
@@ -34,7 +37,7 @@ class RegisterTest extends TestCase
 
     public function testAlreadyVerified(): void
     {
-        $user = User::register('name', 'email', 'password');
+        $user = User::register($this->name, $this->email, $this->password);
         $user->verify();
 
         $this->expectExceptionMessage('User is already verified.');

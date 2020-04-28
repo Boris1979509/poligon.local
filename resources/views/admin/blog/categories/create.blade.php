@@ -1,12 +1,10 @@
 @extends('layouts.app')
 @section('content')
-    @php /** @var App\Models\Blog\BlogCategory $item */@endphp
-    <form action="{{ route('admin.blog.categories.update', $item->id) }}" method="POST">
-        @method('PATCH')
+    <form action="{{ route('admin.blog.categories.store') }}" method="POST">
         @csrf
         <div class="row justify-content-center">
             <div class="col-md-8">
-                @include('admin.blog.categories.includes.item_edit_main_col')
+                @include('admin.blog.categories.includes.item_create_main_col')
             </div>
             <div class="col-md-4">
                 @include('admin.blog.categories.includes.item_edit_add_col')

@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use DomainException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticated;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 
 /**
  * @property int $id
@@ -60,6 +62,9 @@ class User extends Authenticated
         'phone_auth'                => 'boolean',
     ];
 
+    /**
+     * @return array
+     */
     public static function rolesList(): array
     {
         return [
@@ -88,7 +93,7 @@ class User extends Authenticated
     }
 
     /**
-     * Create a new user in admin
+     * Create a new user from admin
      * @param $name
      * @param $email
      * @return User
@@ -127,7 +132,7 @@ class User extends Authenticated
     public function verify(): void
     {
         if (!$this->isWait()) {
-            throw new \DomainException('User is already verified.');
+            throw new DomainException('User is already verified.');
         }
 
         $this->update([
@@ -143,10 +148,10 @@ class User extends Authenticated
     public function changeRole($role): void
     {
         if (!array_key_exists($role, self::rolesList())) {
-            throw new \InvalidArgumentException('Undefined role "' . $role . '"');
+            throw new InvalidArgumentException('Undefined role "' . $role . '"');
         }
         if ($this->role === $role) {
-            throw new \DomainException('Role is already assigned.');
+            throw new DomainException('Role is already assigned.');
         }
         $this->update(['role' => $role]);
     }

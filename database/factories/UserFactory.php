@@ -16,9 +16,10 @@ $factory->define(User::class, static function (Faker $faker) {
         'name'              => $faker->name,
         'email'             => $faker->unique()->safeEmail,
         'email_verified_at' => $active ? now() : null,
+        'verify_token'      => $active ? null : Str::uuid(),
         'password'          => bcrypt(Str::random()),
         'remember_token'    => Str::random(10),
         'status'            => !$active ? User::STATUS_WAIT : User::STATUS_ACTIVE,
-        'role'              => USER::ROLE_USER,
+        'role'              => User::ROLE_USER,
     ];
 });

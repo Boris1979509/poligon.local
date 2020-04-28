@@ -62,3 +62,11 @@ Breadcrumbs::for('admin.blog.categories.index', static function ($trail) {
     $trail->parent('home');
     $trail->push(__('Category'), route('admin.blog.categories.index'));
 });
+Breadcrumbs::for('admin.blog.categories.edit', static function (Generator $trail, $id) {
+    $trail->parent('admin.blog.categories.index');
+    $trail->push('Edit', route('admin.blog.categories.edit', $id));
+});
+Breadcrumbs::for('admin.blog.categories.create', static function (Generator $trail) {
+    $trail->parent('admin.blog.categories.index');
+    $trail->push('Create', route('admin.blog.categories.create'));
+});
