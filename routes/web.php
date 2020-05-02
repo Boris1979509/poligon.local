@@ -29,13 +29,6 @@ Route::group([
     ], static function () {
         $methods = ['index', 'edit', 'store', 'update', 'create'];
         Route::resource('categories', 'CategoryController')->only($methods);
+        Route::resource('posts', 'PostController')->except('show');
     });
 });
-
-// Blog
-//Route::group(
-//    ['namespace' => 'Blog',
-//     'prefix'    => 'blog',
-//    ], static function () {
-//    Route::resource('posts', 'PostController')->names('blog.posts');
-//});

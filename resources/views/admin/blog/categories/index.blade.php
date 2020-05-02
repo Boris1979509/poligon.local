@@ -11,7 +11,7 @@
                         <thead>
                         <tr>
                             <th>{{ __('ID') }}</th>
-                            <th>Category</th>
+                            <th>{{ __('Category') }}</th>
                             <th>{{ __('Parent') }}</th>
                         </tr>
                         </thead>

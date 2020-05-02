@@ -57,7 +57,7 @@ Breadcrumbs::for('admin.adverts.home', static function (Generator $trail) {
     $trail->push(__('Dashboard adverts'), route('admin.adverts.home'));
 });
 
-// Admin Blog
+// Admin Blog Category
 Breadcrumbs::for('admin.blog.categories.index', static function ($trail) {
     $trail->parent('home');
     $trail->push(__('Category'), route('admin.blog.categories.index'));
@@ -69,4 +69,17 @@ Breadcrumbs::for('admin.blog.categories.edit', static function (Generator $trail
 Breadcrumbs::for('admin.blog.categories.create', static function (Generator $trail) {
     $trail->parent('admin.blog.categories.index');
     $trail->push('Create', route('admin.blog.categories.create'));
+});
+// Admin Blog Posts
+Breadcrumbs::for('admin.blog.posts.index', static function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('Posts'), route('admin.blog.posts.index'));
+});
+Breadcrumbs::for('admin.blog.posts.edit', static function (Generator $trail, $id) {
+    $trail->parent('admin.blog.posts.index');
+    $trail->push('Edit', route('admin.blog.posts.edit', $id));
+});
+Breadcrumbs::for('admin.blog.posts.create', static function (Generator $trail) {
+    $trail->parent('admin.blog.posts.index');
+    $trail->push('Create', route('admin.blog.posts.create'));
 });

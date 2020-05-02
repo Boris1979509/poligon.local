@@ -33,8 +33,8 @@
                         <input type="text" class="form-control" value="{{ $item->updated_at }}" disabled="disabled">
                     </div>
                     <div class="form-group">
-                        <label for="">{{ __('Deleted') }}</label>
-                        <input type="text" class="form-control" value="{{ $item->deleted_at }}" disabled="disabled">
+                        <label for="">{{ __('Published') }}</label>
+                        <input type="text" class="form-control" value="{{ $item->published_at }}" disabled="disabled">
                     </div>
                 </div>
             </div>

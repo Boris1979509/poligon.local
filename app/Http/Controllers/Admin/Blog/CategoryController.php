@@ -47,12 +47,6 @@ class CategoryController extends BaseController
      */
     public function store(BlogCategoryCreateRequest $request): ?RedirectResponse
     {
-        // If input slug is empty
-        $request['slug'] = $this->slug($request['title']);
-
-        // $item = BlogCategory($request->all());
-        // $item->save();
-
         if ($category = app(BlogCategory::class)->create($request->all())) {
             return redirect()
                 ->route('admin.blog.categories.edit', $category->id)
@@ -85,8 +79,6 @@ class CategoryController extends BaseController
         if (!$category) {
             return back()->with('error', $id . ' ' . __('Not found'))->withInput();
         }
-        // If input slug is empty
-        $request['slug'] = $this->slug($request['title']);
 
         // $data = $request->all(); // Array
         // $category->fill($data)->save(); // return bool
