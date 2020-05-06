@@ -13,8 +13,8 @@
         "davejamesmiller/laravel-breadcrumbs": "5.x",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
-        "symfony/translation": "4.3.8",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "symfony/translation": "4.3.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

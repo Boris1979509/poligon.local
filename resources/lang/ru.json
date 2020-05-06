@@ -34,5 +34,9 @@
     "Description": "Описание",
     "Date published": "Дата публикации",
     "Saved successfully": "Успешно сохранено.",
+    "Deleted successfully": "Успешно удалено.",
+    "Restored successfully": "Успешно восстановлено.",
+    "Article is deleted": "Статья была удалена.",
+    "Restore": "Восстановить",
     "Not found": "не найдено."
 }

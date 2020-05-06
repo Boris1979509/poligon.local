@@ -31,7 +31,7 @@
                                 @php /** @var BlogCategory $categoryItem*/use App\Models\Blog\BlogCategory; @endphp
                                 @foreach($categoryList as $categoryItem)
                                     <option value="{{ $categoryItem->id }}"
-                                            @if($item->parent_id === $categoryItem->id) selected @endif>{{
+                                            @if($item->parent_id === $categoryItem->id) selected="selected" @endif>{{
                                         $categoryItem->id_title }}
                                     </option>
                                 @endforeach

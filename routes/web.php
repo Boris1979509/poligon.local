@@ -30,5 +30,6 @@ Route::group([
         $methods = ['index', 'edit', 'store', 'update', 'create'];
         Route::resource('categories', 'CategoryController')->only($methods);
         Route::resource('posts', 'PostController')->except('show');
+        Route::get('posts/{post}/restore', 'PostController@restore')->name('posts.restore'); // Восстановление статьи
     });
 });

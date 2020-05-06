@@ -24,8 +24,17 @@
                                 <td>{{ $post->id }}</td>
                                 <td>{{ $post->user->name }}</td>
                                 <td>{{ $post->category->title }}</td>
-                                <td><a href="{{ route('admin.blog.posts.edit', $post) }}">{{ $post->title }}</a></td>
-                                <td>{{ ($post->published_at) ? \Carbon\Carbon::parse($post->published_at)->format('d.M H.i') : null }}</td>
+                                <td>@if(is_null($post->deleted_at))
+                                        <a href="{{ route('admin.blog.posts.edit', $post) }}">{{ $post->title }}</a>
+                                    @else
+                                        {{ $post->title }}
+                                        <div class="alert alert-danger mb-0">
+                                            {{ __('Article is deleted') }}
+                                            <a href="{{ route('admin.blog.posts.restore', $post) }}">{{ __('Restore') }}</a>
+                                        </div>
+                                    @endif
+                                </td>
+                                <td>{{ $post->published_at }}</td>
                             </tr>
                         @endforeach
                         </tbody>

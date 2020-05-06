@@ -1,1 +1,1 @@
-@include('admin.blog.categories.includes.item_edit_main_col')
+@include('admin.blog.posts.includes.item_edit_main_col')

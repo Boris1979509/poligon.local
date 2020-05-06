@@ -16,19 +16,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($paginator as $key => $item)
-                            @php
-                                /**
-                                * @var App\Models\Blog\BlogCategory $item
-                                */
-                            @endphp
+                        @php
+                            /**
+                            * @var BlogCategory $item
+                            */use App\Models\Blog\BlogCategory;
+                        @endphp
+                        @foreach ($paginator as $item)
+
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>
                                     <a href='{{ route('admin.blog.categories.edit', $item->id) }}'>{{ $item->title }}</a>
                                 </td>
-                                <td @if(in_array($item->parent_id, [0, 1])) class="text-black-50" @endif>{{
-                                    $item->parent_id }}
+                                <td class="text-black-50">{{ $item->parentTitle }}
                                 </td>
                             </tr>
                         @endforeach

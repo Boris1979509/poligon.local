@@ -3,6 +3,7 @@
 namespace App\Models\Blog;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -12,6 +13,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $title
  * @property integer $parent_id
  * @property string $description
+ *
+ * @property-read BelongsTo $parent
+ * @property-read mixed|null $parentTitle
  */
 class BlogCategory extends Model
 {
@@ -25,4 +29,20 @@ class BlogCategory extends Model
         'description',
     ];
 
+    /**
+     * @return BelongsTo
+     */
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(static::class, 'parent_id', 'id');
+    }
+
+    /**
+     * Accessor
+     * @return mixed|null
+     */
+    public function getParentTitleAttribute()
+    {
+        return $this->parent->title ?? null;
+    }
 }

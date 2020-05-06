@@ -24,7 +24,7 @@ $factory->define(BlogPost::class, static function (Faker $faker) {
     $isPublished = (random_int(1, 5) > 1) ? true : false;
     $createdAt = $faker->dateTimeBetween('-2 month', '-1 days');
     $data = [
-        'category_id'  => random_int(1, 11),
+        'category_id'  => random_int(1, 15),
         'user_id'      => random_int(1, 100),
         'title'        => $title,
         'slug'         => Str::slug($title),

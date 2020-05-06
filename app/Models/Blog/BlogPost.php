@@ -3,9 +3,11 @@
 namespace App\Models\Blog;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use phpDocumentor\Reflection\Types\Mixed_;
 
 /**
  * Class BlogPost
@@ -30,6 +32,7 @@ class BlogPost extends Model
         'slug',
         'content_raw',
         'is_published',
+        'deleted_at',
         'published_at',
         'excerpt',
     ];
@@ -50,5 +53,17 @@ class BlogPost extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    /**
+     * @param $value
+     * @return string|null
+     */
+    public function getPublishedAtAttribute($value): ?string
+    {
+        if (!$value) {
+            return null;
+        }
+        return Carbon::parse($value)->format('d.M H.i');
     }
 }

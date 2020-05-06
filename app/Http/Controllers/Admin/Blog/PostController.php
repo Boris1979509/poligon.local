@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Requests\Admin\Blog\BlogPostUdateRequest;
+use App\Http\Requests\Admin\Blog\BlogPostCreateRequest;
 use App\Models\Blog\BlogCategory;
 use App\Models\Blog\BlogPost;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\BlogCategoryRepository;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class PostController extends BaseController
@@ -43,14 +45,28 @@ class PostController extends BaseController
         return view('admin.blog.posts.index', compact('paginator'));
     }
 
-    public function create(): void
+    /**
+     * @return Factory|View
+     */
+    public function create()
     {
-        //
+        $item = new BlogPost();
+        $categoryList = $this->blogCategoryRepository->getForComboBox();
+        return view('admin.blog.posts.create', compact('item', 'categoryList'));
     }
 
-    public function store(Request $request): void
+    /**
+     * @param BlogPostCreateRequest $request
+     * @return RedirectResponse
+     */
+    public function store(BlogPostCreateRequest $request): ?RedirectResponse
     {
-        //
+        $request->user_id = Auth::user()->id;
+        if ($post = (new BlogPost())->create($request->input())) {
+            return redirect()
+                ->route('admin.blog.posts.edit', $post->id)
+                ->with('success', __('Saved successfully'));
+        }
     }
 
     /**
@@ -81,8 +97,33 @@ class PostController extends BaseController
         }
     }
 
-    public function destroy($id): void
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function destroy($id): RedirectResponse
     {
-        //
+        // $item = BlogPost::find($id)->forceDelete();
+
+        // Soft deleted
+        if ($item = BlogPost::destroy($id)) {
+            return redirect()
+                ->route('admin.blog.posts.index')
+                ->with('success', __('Deleted successfully'));
+        }
+    }
+
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function restore($id): RedirectResponse
+    {
+        $post = $this->blogPostRepository->getRestore($id);
+        if ($post->restore()) {
+            return redirect()
+                ->route('admin.blog.posts.index')
+                ->with('success', __('Restored successfully'));
+        }
     }
 }
