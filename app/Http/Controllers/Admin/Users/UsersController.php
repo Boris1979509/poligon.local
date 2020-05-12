@@ -27,6 +27,7 @@ class UsersController extends Controller
     {
         $this->register = $register;
         //$this->middleware('can:manage-users');
+        $this->middleware('can:allow-access-admin');
     }
 
     /**

@@ -11,7 +11,7 @@ Route::group([
     'prefix'     => 'admin',
     'as'         => 'admin.',
     'namespace'  => 'Admin',
-    'middleware' => 'auth',
+    'middleware' => ['auth', 'can:allow-access-admin'],
 ], static function () {
     Route::get('/', 'HomeController@index')->name('home');
     // Admin Users
