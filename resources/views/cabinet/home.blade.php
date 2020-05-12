@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Cabinet') }}</div>
-                    <div class="card-body">
-                        Welcome, {{ Auth::user()->name }}
-                    </div>
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">{{ __('Welcome') . ', ' . Auth::user()->name }}</div>
+                <div class="card-body">
+                    <a href="{{ route('admin.blog.posts.index') }}" class="btn btn-outline-primary">{{ __('Blog') }}</a>
+                    <a href="{{--route('admin.blog.posts.index')--}}"
+                       class="btn btn-outline-success">{{ __('Adverts') }}</a>
                 </div>
             </div>
         </div>

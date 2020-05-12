@@ -18,6 +18,7 @@
     "Create": "Создать",
     "Add category": "Добавить категорию",
     "Add post": "Добавить статью",
+    "Posts": "Статьи",
     "Data": "Данные",
     "Additional data": "Дополнительные данные",
     "Parent": "Родитель",
@@ -38,5 +39,6 @@
     "Restored successfully": "Успешно восстановлено.",
     "Article is deleted": "Статья была удалена.",
     "Restore": "Восстановить",
+    "Categories": "Категории",
     "Not found": "не найдено."
 }

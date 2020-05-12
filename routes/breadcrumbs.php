@@ -39,7 +39,7 @@ Breadcrumbs::for('admin.users.index', static function (Generator $trail) {
 
 Breadcrumbs::for('admin.users.create', static function (Generator $trail) {
     $trail->parent('admin.users.index');
-    $trail->push('Create', route('admin.users.create'));
+    $trail->push(__('Create'), route('admin.users.create'));
 });
 
 Breadcrumbs::for('admin.users.show', static function (Generator $trail, User $user) {
@@ -50,7 +50,7 @@ Breadcrumbs::for('admin.users.show', static function (Generator $trail, User $us
 
 Breadcrumbs::for('admin.users.edit', static function (Generator $trail, User $user) {
     $trail->parent('admin.users.show', $user);
-    $trail->push('Edit', route('admin.users.edit', $user));
+    $trail->push(__('Edit'), route('admin.users.edit', $user));
 });
 // Adverts admin dashboard
 Breadcrumbs::for('admin.adverts.home', static function (Generator $trail) {
@@ -60,15 +60,15 @@ Breadcrumbs::for('admin.adverts.home', static function (Generator $trail) {
 // Admin Blog Category
 Breadcrumbs::for('admin.blog.categories.index', static function ($trail) {
     $trail->parent('home');
-    $trail->push(__('Category'), route('admin.blog.categories.index'));
+    $trail->push(__('Categories'), route('admin.blog.categories.index'));
 });
 Breadcrumbs::for('admin.blog.categories.edit', static function (Generator $trail, $id) {
     $trail->parent('admin.blog.categories.index');
-    $trail->push('Edit', route('admin.blog.categories.edit', $id));
+    $trail->push(__('Edit'), route('admin.blog.categories.edit', $id));
 });
 Breadcrumbs::for('admin.blog.categories.create', static function (Generator $trail) {
     $trail->parent('admin.blog.categories.index');
-    $trail->push('Create', route('admin.blog.categories.create'));
+    $trail->push(__('Create'), route('admin.blog.categories.create'));
 });
 // Admin Blog Posts
 Breadcrumbs::for('admin.blog.posts.index', static function ($trail) {
@@ -77,9 +77,9 @@ Breadcrumbs::for('admin.blog.posts.index', static function ($trail) {
 });
 Breadcrumbs::for('admin.blog.posts.edit', static function (Generator $trail, $id) {
     $trail->parent('admin.blog.posts.index');
-    $trail->push('Edit', route('admin.blog.posts.edit', $id));
+    $trail->push(__('Edit'), route('admin.blog.posts.edit', $id));
 });
 Breadcrumbs::for('admin.blog.posts.create', static function (Generator $trail) {
     $trail->parent('admin.blog.posts.index');
-    $trail->push('Create', route('admin.blog.posts.create'));
+    $trail->push(__('Create'), route('admin.blog.posts.create'));
 });

@@ -5,6 +5,8 @@
         <div class="col-12">
             <a href="{{ route('admin.blog.posts.create') }}"
                class="btn btn-primary mb-3">{{ __('Add post') }}</a>
+            <a href="{{ route('admin.blog.categories.index') }}"
+               class="btn btn-primary mb-3">{{ __('Categories') }}</a>
             <div class="cart">
                 <div class="cart-body">
                     <table class="table table-bordered">
