@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
 use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,6 +29,10 @@ class UsersController extends Controller
         //$this->middleware('can:manage-users');
     }
 
+    /**
+     * @param Request $request
+     * @return Factory|View
+     */
     public function index(Request $request)
     {
         $query = User::orderByDesc('id');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Requests\Admin\Blog\BlogPostUdateRequest;
 use App\Http\Requests\Admin\Blog\BlogPostCreateRequest;
+use App\Jobs\Blog\BlogPostAfterCreateJob;
+use App\Jobs\Blog\BlogPostAfterDeleteJob;
 use App\Models\Blog\BlogCategory;
 use App\Models\Blog\BlogPost;
 use Illuminate\Contracts\View\Factory;
@@ -63,6 +65,9 @@ class PostController extends BaseController
     {
         $request->user_id = Auth::user()->id;
         if ($post = (new BlogPost())->create($request->input())) {
+            // Create Queue
+            $job = new BlogPostAfterCreateJob($post);
+            $this->dispatch($job);
             return redirect()
                 ->route('admin.blog.posts.edit', $post->id)
                 ->with('success', __('Saved successfully'));
@@ -107,6 +112,7 @@ class PostController extends BaseController
 
         // Soft deleted
         if ($item = BlogPost::destroy($id)) {
+            BlogPostAfterDeleteJob::dispatch($id)->delay(20);
             return redirect()
                 ->route('admin.blog.posts.index')
                 ->with('success', __('Deleted successfully'));
