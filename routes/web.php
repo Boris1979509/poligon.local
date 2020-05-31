@@ -32,4 +32,12 @@ Route::group([
         Route::resource('posts', 'PostController')->except('show');
         Route::get('posts/{post}/restore', 'PostController@restore')->name('posts.restore'); // Восстановление статьи
     });
+    // Admin Adverts
+    Route::group([
+        'namespace' => 'Adverts',
+        'prefix'    => 'adverts',
+        'as'        => 'adverts.',
+    ], static function () {
+        Route::resource('regions', 'RegionController');
+    });
 });
